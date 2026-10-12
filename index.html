@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Utah Jazz 45-Win Pace Tracker 2026-27</title>
+<meta name="description" content="Unofficial fan tracker: are the Utah Jazz on pace for 45 wins in 2026-27?">
+<meta property="og:title" content="Utah Jazz 45-Win Pace Tracker">
+<meta property="og:description" content="Record, win pace, circled games and upset alerts for the 2026-27 Jazz.">
+<meta name="theme-color" content="#4E008E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--mp:#4E008E;--mpd:#2a0050;--mb:#000;--sky:#79A3DC;--w:#fff;--ink:#0a0a0c;--line:#ffffff1f;--mute:#b9b4c6;--mw:#79A3DC;--sw:#B48AE6;--st:#fff;--ot:#5a5568;--g:#79A3DC}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--mb);color:var(--w);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+h1,h2,.num,.tag,.filters button,.wm{font-family:"Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase}
+h2{font-weight:700;font-size:1.05rem;letter-spacing:.22em;color:var(--sky);margin:0 0 16px;display:flex;align-items:center;gap:12px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+section{margin:0;padding:34px 0;border-top:1px solid var(--line)}
+.demo{background:var(--w);color:var(--mb);text-align:center;font:800 .85rem/1 Inter,sans-serif;letter-spacing:.12em;padding:11px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--mp) 0%,var(--mpd) 45%,var(--mb) 100%);padding:22px 0 40px}
+.hero svg.mtn{position:absolute;left:0;right:0;bottom:0;width:100%;height:46%;pointer-events:none}
+.hero .wrap{position:relative}
+.wm{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.28em;font-size:.78rem;color:var(--w);margin-bottom:34px}
+.wm i{width:22px;height:1px;background:var(--sky)}.wm b{color:var(--sky);font-weight:700}
+.hero h1{margin:0;font-weight:800;font-size:clamp(2.6rem,11vw,5.6rem);line-height:.9;letter-spacing:.01em}.hero h1 span{color:var(--sky)}
+.sub{color:#ffffffcc;margin:12px 0 28px;font-size:.92rem;letter-spacing:.02em}
+.board{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.cell{background:#0000008c;padding:16px 14px}
+.cell .lab{font-size:.68rem;text-transform:uppercase;letter-spacing:.18em;color:var(--mute);font-weight:600}
+.cell .num{font-weight:700;font-size:clamp(2.4rem,11vw,3.8rem);line-height:1;margin-top:6px;font-variant-numeric:tabular-nums}
+#pace{color:var(--sky)}
+@media(min-width:760px){.board{grid-template-columns:repeat(4,1fr)}.hero{padding:28px 0 56px}}
+.need{margin:10px 0 0;font-size:1rem;font-weight:500;color:#ffffffd9}.need b{color:var(--sky);font-weight:700}
+.meter{position:relative;height:10px;background:#ffffff26;border-radius:2px;margin:52px 2px 34px}
+.fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--sky),#fff);min-width:3px;transition:width 1s}
+.mk{position:absolute;top:-26px;bottom:-22px;width:0;border-left:1px solid #ffffff99}
+.mk span{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap;font:600 .7rem Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#ffffffcc}
+.mk.goal{border-color:var(--sky);border-left-width:2px}.mk.goal span{color:var(--sky)}
+.mk em{position:absolute;bottom:0;transform:translateX(-50%);font-style:normal;font-size:.7rem;color:var(--mute);white-space:nowrap}
+.cards{display:grid;gap:12px}@media(min-width:760px){.cards{grid-template-columns:repeat(3,1fr)}}
+.card{padding:18px;background:var(--ink);border:1px solid var(--line);border-top:3px solid;border-radius:4px}
+.card .num{font-size:3rem;font-weight:700;line-height:1;margin:10px 0 4px}.card p{margin:10px 0 0;font-size:.88rem;color:var(--mute)}
+.c-MUST-WIN{border-color:var(--mw)}.c-SWING{border-color:var(--sw)}.c-STEAL{border-color:var(--st)}.c-OTHER{border-color:var(--ot)}
+.card.c-MUST-WIN,.card.c-SWING,.card.c-STEAL{border-left-color:var(--line);border-right-color:var(--line);border-bottom-color:var(--line)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:2px;color:var(--mb);letter-spacing:.14em;vertical-align:middle}
+.t-MUST-WIN{background:var(--mw)}.t-SWING{background:var(--sw)}.t-STEAL{background:var(--st)}.t-OTHER{background:var(--ot);color:#fff}
+.next{display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;background:linear-gradient(120deg,var(--mp),var(--mpd) 60%,var(--ink));border-radius:4px;padding:22px}
+.next .num{font-weight:700;letter-spacing:.02em}
+.cd{display:flex;gap:6px}.cd div{background:#0000008c;border:1px solid var(--line);border-radius:3px;padding:8px 6px;text-align:center;min-width:60px}
+.cd .num{font-size:2rem;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}.cd small{display:block;font-size:.58rem;letter-spacing:.18em;color:var(--mute);margin-top:3px}
+.sched{max-height:540px;overflow-y:auto;border:1px solid var(--line);border-radius:4px}
+.g{display:grid;grid-template-columns:30px 1fr auto;gap:10px;align-items:center;padding:12px 14px;border-left:3px solid;border-bottom:1px solid var(--line);background:var(--ink)}
+.g .no{font-weight:600;color:var(--mute);font-variant-numeric:tabular-nums;font-size:.85rem}.g .opp{font-weight:600}.g .meta{font-size:.75rem;color:var(--mute);margin-top:2px}
+.g .res{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}.W{color:#7fd8a6}.L{color:#ff8a8a}
+.pill{font-size:.6rem;font-weight:600;letter-spacing:.08em;border:1px solid #ffffff55;border-radius:2px;padding:1px 5px;margin-left:5px;color:#ffffffcc}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}.filters button{background:transparent;color:#fff;border:1px solid #ffffff40;border-radius:2px;padding:6px 14px;font-weight:600;font-size:.9rem;letter-spacing:.12em;cursor:pointer}
+.filters button.on{background:var(--w);color:var(--mb);border-color:var(--w)}
+.wall{display:grid;gap:12px}@media(min-width:760px){.wall{grid-template-columns:repeat(3,1fr)}}
+.up{background:linear-gradient(140deg,var(--mp),var(--mb));border:1px solid var(--sky);border-radius:4px;padding:16px}
+.up .num{font-size:1.8rem;font-weight:700;margin:6px 0 2px}
+.empty{color:var(--mute);font-style:normal}
+.legend{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.legend div{background:var(--ink);border:1px solid var(--line);border-radius:4px;padding:14px;font-size:.88rem;color:var(--mute)}
+.legend b{color:var(--w);font-family:"Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.14em;font-size:1rem}
+svg text{fill:#9d97ad;font-size:11px;font-family:Inter,sans-serif}
+footer{text-align:center;color:var(--mute);font-size:.8rem;padding:30px 18px 44px;border-top:1px solid var(--line);background:linear-gradient(0deg,var(--mpd),var(--mb))}
+footer .wm{justify-content:center;margin:0 0 10px}
+#banner{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:50;pointer-events:none}
+#banner div{background:var(--mp);color:#fff;font:800 clamp(2.2rem,11vw,5rem)/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.06em;padding:20px 30px;border:2px solid var(--sky);border-radius:4px;animation:pop .6s cubic-bezier(.2,1.6,.4,1);text-align:center;box-shadow:0 30px 80px #000c}
+#banner small{display:block;font:600 .3em Inter,sans-serif;letter-spacing:.1em;margin-top:10px;color:var(--sky)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:40}
+.stand{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:.88rem}
+.stand th{font:600 .66rem Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);text-align:right;padding:8px 6px;border-bottom:1px solid var(--line)}
+.stand td{padding:9px 6px;text-align:right;border-bottom:1px solid #ffffff0d}
+.stand th:nth-child(2),.stand td:nth-child(2){text-align:left}.stand td:first-child{color:var(--mute);width:28px;text-align:left}.stand th:first-child{text-align:left}
+.stand td.tm{font-weight:600}.stand .ab{display:none}
+@media(max-width:520px){.stand .full{display:none}.stand .ab{display:inline}.stand{font-size:.84rem}}
+.stand tr.jazz td{background:linear-gradient(90deg,#4E008Ecc,#4E008E33);color:#fff}.stand tr.jazz td:first-child{box-shadow:inset 3px 0 0 var(--sky);color:#fff}
+.stand tr.zone td{padding:14px 6px 6px;border-bottom:1px solid;font:700 .7rem "Barlow Condensed",sans-serif;letter-spacing:.2em;text-transform:uppercase;text-align:left}
+.zone.po td{color:var(--sky);border-color:var(--sky)}.zone.pi td{color:#B48AE6;border-color:#B48AE6}.zone.lo td{color:var(--mute);border-color:#ffffff33}
+.snote{font-size:.8rem;color:var(--mute);margin:10px 0 0}
+</style></head><body>
+<div id="demo" class="demo" hidden>⚠ DEMO DATA: FAKE RESULTS FOR TESTING ONLY ⚠</div>
+<header class="hero"><svg class="mtn" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 300V190l140-90 90 55 160-125 120 95 80-50 170 130 110-70 150 85 90-45 90 50v165z" fill="#ffffff" opacity=".05"/><path d="M0 300V240l180-70 120 50 190-110 150 100 120-55 160 80 140-60 140 55v70z" fill="#000" opacity=".55"/></svg>
+ <div class="wrap">
+  <div class="wm"><i></i>UTAH JAZZ <b>·</b> MOUNTAIN BASKETBALL<i></i></div>
+  <h1>Utah Jazz <span>45-Win</span> Pace Tracker</h1>
+  <div class="sub">2026-27 season · Goal 45 · Vegas 36.5 (DraftKings)</div>
+  <div class="board">
+   <div class="cell"><div class="lab">Record</div><div class="num" id="rec">0-0</div></div>
+   <div class="cell"><div class="lab">82-game pace</div><div class="num" id="pace">—</div></div>
+   <div class="cell"><div class="lab">Wins needed</div><div class="num" id="needN">45</div></div>
+   <div class="cell"><div class="lab">Games left</div><div class="num" id="left">82</div></div>
+  </div>
+  <div class="meter" id="meter"><div class="fill" id="fill" style="width:0"></div></div>
+  <div class="need" id="need"></div>
+ </div>
+</header>
+<main class="wrap">
+ <section><h2>West Standings</h2><div style="overflow-x:auto"><table class="stand" id="stand"></table></div><p class="snote" id="snote"></p></section>
+ <section><h2>Pace Chart</h2><div id="chart"></div>
+  <div style="font-size:.8rem;opacity:.8">Sky blue = actual wins · dashed white = 45-win pace · dotted purple = 36.5 Vegas pace</div></section>
+ <section><h2>Circled Games Scorecard</h2><div class="cards" id="cards"></div>
+  <p style="font-size:.85rem;opacity:.8;margin-bottom:0">The baseline plan (sweep MUST-WIN, split SWING, steal 3) gets to about 37 wins. Getting to 45 means beating it by ~8.</p></section>
+ <section><h2>Next Circled Game</h2><div id="next"></div></section>
+ <section><h2>Upset Alert Wall</h2><div class="wall" id="wall"></div></section>
+ <section><h2>Full Schedule</h2>
+  <div class="filters" id="filters"></div>
+  <div class="sched" id="sched"></div>
+  <p style="font-size:.8rem;opacity:.7;margin-bottom:0" id="tbdnote"></p></section>
+ <section><h2>Opponent Tiers</h2><div class="legend">
+  <div><b>Contender</b> · Vegas total 50+<br>OKC, San Antonio, New York, Boston, Philadelphia</div>
+  <div><b>Good</b> · 44 to 49.5<br>Playoff teams. Winnable at home, tough on the road.</div>
+  <div><b>Peer</b> · 31.5 to 43.5<br>Teams near the Jazz (36.5). Head-to-head wins matter most here.</div>
+  <div><b>Weak</b> · under 31.5<br>Lottery teams. Losing these hurts.</div>
+ </div>
+ <p style="font-size:.85rem;opacity:.8;margin-bottom:0">Tags: <span class="pill">B2B</span> second night of a back-to-back · <span class="pill">WEST PEER</span> West rival for tiebreakers and the play-in · Upset = any STEAL win, or a win over a Good/Contender team (higher tier than the Jazz).</p></section>
+</main>
+<footer><div class="wm">UTAH JAZZ <b>·</b> TAKE NOTE</div>Unofficial fan tracker. Win totals: DraftKings preseason.<br>Last updated: <span id="upd"></span></footer>
+<canvas id="confetti"></canvas><div id="banner"><div>🚨 UPSET ALERT 🚨<small id="bannerSub"></small></div></div>
+<script src="data.js"></script>
+<script>
+(async function(){
+let D=window.JAZZ_DATA;
+if(!D){try{D=await (await fetch('data.json',{cache:'no-store'})).json()}catch(e){document.body.insertAdjacentHTML('afterbegin','<p style="padding:20px">Could not load data.</p>');return}}
+const $=id=>document.getElementById(id), G=D.games, P=G.filter(g=>g.result), N=D.total_games;
+const W=P.filter(g=>g.result.w).length, L=P.length-W, left=N-P.length, need=Math.max(0,D.goal-W);
+if(D.demo)$('demo').hidden=false;
+$('rec').textContent=`${W}-${L}`;
+$('pace').textContent=P.length?(W/P.length*N).toFixed(1):'—';
+$('needN').textContent=need;$('left').textContent=left;
+$('need').innerHTML=need>left?`45 is out of reach. Max possible: <b>${W+left}</b> wins.`:need===0?`<b>45 WINS: GOAL REACHED!</b>`:
+ `Wins needed: <b>${need}</b>, need a <b>${need}-${left-need}</b> finish (${(need/left*100).toFixed(0)}% of remaining games)`;
+// standings
+(function(){const S=D.standings;if(!S||!S.teams){$('stand').closest('section').hidden=true;return}
+ const ab=t=>({'LA Clippers':'LAC','Los Angeles Lakers':'LAL','Golden State Warriors':'GSW','New Orleans Pelicans':'NOP','Oklahoma City Thunder':'OKC','San Antonio Spurs':'SAS','Portland Trail Blazers':'POR','Minnesota Timberwolves':'MIN'}[t]||t.split(' ').slice(-1)[0]);
+ const Z={1:['po','Playoffs · 1-6'],7:['pi','Play-In · 7-10'],11:['lo','Lottery · 11-15']};
+ let h='<tr><th>#</th><th>Team</th><th>W-L</th><th>GB</th><th>L10</th><th>Strk</th></tr>';
+ S.teams.forEach(t=>{if(Z[t.seed])h+=`<tr class="zone ${Z[t.seed][0]}"><td colspan="6">${Z[t.seed][1]}</td></tr>`;
+  h+=`<tr class="${t.team==='Utah Jazz'?'jazz':''}"><td>${t.seed}</td><td class="tm"><span class="full">${t.team}</span><span class="ab">${t.team==='Utah Jazz'?'Jazz':ab(t.team)}</span></td><td>${t.w}-${t.l}</td><td>${t.gb}</td><td>${t.l10}</td><td>${t.streak}</td></tr>`});
+ $('stand').innerHTML=h;
+ $('snote').textContent=(S.note?S.note+' · listed alphabetically until games are played. ':'')+(S.source==='ESPN'&&S.fetched?`Source: ESPN · updated ${new Date(S.fetched).toLocaleString('en-US',{timeZone:'America/Denver',dateStyle:'medium',timeStyle:'short'})} MT`:S.source==='demo'?'DEMO standings (fake).':'')})();
+// meter
+const pct=v=>v/N*100; $('fill').style.width=pct(W)+'%';
+[[D.vegas,'Vegas '+D.vegas,''],[D.goal,'Goal '+D.goal,'goal']].forEach(([v,t,c])=>$('meter').insertAdjacentHTML('beforeend',`<div class="mk ${c}" style="left:${pct(v)}%"><span>${t}</span></div>`));
+$('meter').insertAdjacentHTML('beforeend',`<div class="mk" style="left:0;border:0"><em>0</em></div><div class="mk" style="left:100%;border:0"><em>82</em></div>`);
+// chart (inline SVG)
+(function(){const w=700,h=300,m={l:34,r:12,t:12,b:26},x=n=>m.l+n/N*(w-m.l-m.r),y=v=>h-m.b-v/50*(h-m.t-m.b);
+ let s=`<svg viewBox="0 0 ${w} ${h}" width="100%" role="img" aria-label="Wins vs pace">`;
+ for(let v=0;v<=50;v+=10)s+=`<line x1="${m.l}" x2="${w-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="#ffffff1a"/><text x="4" y="${y(v)+4}">${v}</text>`;
+ for(let n=0;n<=80;n+=20)s+=`<text x="${x(n)-6}" y="${h-8}">${n}</text>`;
+ s+=`<line x1="${x(0)}" y1="${y(0)}" x2="${x(N)}" y2="${y(45)}" stroke="#fff" stroke-width="2" stroke-dasharray="6 5"/><text x="${x(N)-60}" y="${y(45)-6}" style="fill:#fff">45 pace</text>`;
+ s+=`<line x1="${x(0)}" y1="${y(0)}" x2="${x(N)}" y2="${y(36.5)}" stroke="#B48AE6" stroke-width="2" stroke-dasharray="3 4"/><text x="${x(N)-60}" y="${y(36.5)+16}" style="fill:#B48AE6">36.5 pace</text>`;
+ let c=0,pts=[[0,0]];P.forEach((g,i)=>{c+=g.result.w;pts.push([i+1,c])});
+ s+=`<polyline fill="none" stroke="#79A3DC" stroke-width="4" points="${pts.map(p=>x(p[0])+','+y(p[1])).join(' ')}"/>`;
+ pts.slice(1).forEach(p=>s+=`<circle cx="${x(p[0])}" cy="${y(p[1])}" r="4" fill="#79A3DC"/>`);
+ if(!P.length)s+=`<text x="${w/2-80}" y="${h/2}" style="font-size:15px;fill:#79A3DC">Tip-off Oct 21. Line fills in as games are played.</text>`;
+ $('chart').innerHTML=s+'</svg>'})();
+// scorecard
+const EX={'MUST-WIN':'Home games vs Peer or Weak teams. These are the ones you just can\'t drop.','SWING':'Home vs Good teams, or road games vs Peers. Coin flips; winning more than half is how you beat Vegas.','STEAL':'Games vs Contenders. Nobody expects these, so every win is a bonus.'},PLAN={'MUST-WIN':'win all','SWING':'win half','STEAL':'win 3'};
+$('cards').innerHTML=['MUST-WIN','SWING','STEAL'].map(k=>{const all=G.filter(g=>g.category===k),p=all.filter(g=>g.result),w=p.filter(g=>g.result.w).length;
+ return `<div class="card c-${k}"><span class="tag t-${k}">${k}</span><div class="num">${w}-${p.length-w}</div><div style="font-size:.8rem;opacity:.75">${all.length} games · ${all.length-p.length} left · plan: ${PLAN[k]}</div><p>${EX[k]}</p></div>`}).join('');
+// next circled game
+const fmt=g=>`${g.home?'vs':'@'} ${g.opponent}`;
+const nxt=G.find(g=>!g.result&&g.category!=='OTHER'&&new Date(g.tip_iso)>new Date());
+if(!nxt)$('next').innerHTML='<p class="empty">No circled games left.</p>';else{
+ $('next').innerHTML=`<div class="next"><div><span class="tag t-${nxt.category}">${nxt.category}</span><div class="num" style="font-size:2.2rem;margin-top:6px">${fmt(nxt)}</div><div style="color:#ffffffcc;font-size:.88rem">Game ${nxt.game_no} · ${nxt.day} ${new Date(nxt.date+'T12:00').toLocaleDateString('en-US',{month:'short',day:'numeric'})} · ${nxt.tip_mt} MT · ${nxt.tier} (O/U ${nxt.opp_win_total})</div></div><div class="cd" id="cd"></div></div>`;
+ const tick=()=>{let t=Math.max(0,new Date(nxt.tip_iso)-new Date())/1000;const u=[[86400,'DAYS'],[3600,'HRS'],[60,'MIN'],[1,'SEC']].map(([d,l])=>{const v=Math.floor(t/d);t-=v*d;return `<div><div class="num">${String(v).padStart(2,'0')}</div><small>${l}</small></div>`});$('cd').innerHTML=u.join('')};tick();setInterval(tick,1000)}
+// upset wall
+const ups=P.filter(g=>g.result.upset);
+$('wall').innerHTML=ups.length?ups.slice().reverse().map(g=>`<div class="up"><span class="tag t-${g.category}">${g.category==='STEAL'?'STEAL':'UPSET'}</span> <span style="font-size:.8rem;opacity:.8">${g.date}</span><div class="num">${fmt(g)}</div><div><b class="W">W ${g.result.jazz_pts}-${g.result.opp_pts}</b> · beat a ${g.tier} team (O/U ${g.opp_win_total})</div></div>`).join(''):'<p class="empty">No upsets yet. The wall is waiting.</p>';
+// schedule
+let filt='ALL';const cats=['ALL','MUST-WIN','SWING','STEAL','OTHER'];
+function sched(){ $('filters').innerHTML=cats.map(c=>`<button class="${c===filt?'on':''}" data-c="${c}">${c}</button>`).join('');
+ $('sched').innerHTML=G.filter(g=>filt==='ALL'||g.category===filt).map(g=>{const r=g.result;
+  return `<div class="g c-${g.category}" id="g${g.game_no}"><div class="no">${g.game_no}</div><div><div class="opp">${fmt(g)} <span class="tag t-${g.category}">${g.category}</span>${g.b2b?'<span class="pill">B2B</span>':''}${g.west_peer?'<span class="pill">WEST PEER</span>':''}${r&&r.upset?'<span class="pill" style="border-color:#79A3DC;color:#79A3DC">UPSET</span>':''}</div><div class="meta">${g.day} ${g.date} · ${g.tip_mt} MT · ${g.tier} · O/U ${g.opp_win_total}${g.notes&&!g.b2b&&!g.west_peer?' · '+g.notes:g.notes.includes('road trip')?' · road trip':''}</div></div><div class="res">${r?`<span class="${r.w?'W':'L'}">${r.w?'W':'L'}</span> ${r.jazz_pts}-${r.opp_pts}`:'<span style="opacity:.4">—</span>'}</div></div>`}).join('');
+ document.querySelectorAll('#filters button').forEach(b=>b.onclick=()=>{filt=b.dataset.c;sched()})}
+sched();
+$('tbdnote').textContent=`${G.length} of ${N} games listed; ${D.tbd_games} NBA Cup games are TBD. Times are Mountain.`;
+$('upd').textContent=new Date(D.updated).toLocaleString('en-US',{timeZone:'America/Denver',dateStyle:'medium',timeStyle:'short'})+' MT';
+// confetti if most recent game was an upset
+const last=P[P.length-1];
+if(last&&last.result.upset){$('bannerSub').textContent=`${fmt(last)} · W ${last.result.jazz_pts}-${last.result.opp_pts}`;$('banner').style.display='flex';setTimeout(()=>$('banner').style.display='none',5000);confetti()}
+function confetti(){const cv=$('confetti'),cx=cv.getContext('2d');cv.width=innerWidth;cv.height=innerHeight;const C=['#4E008E','#79A3DC','#fff','#000','#B48AE6','#c9dbf2'];let ps=[];
+ const burst=(x0,n)=>{for(let i=0;i<n;i++)ps.push({x:x0,y:cv.height*0.9,vx:(Math.random()-.5)*16,vy:-Math.random()*22-10,s:Math.random()*8+5,c:C[i%C.length],r:Math.random()*6,vr:(Math.random()-.5)*.4})};
+ [0,600,1200,1800,2600].forEach((t,i)=>setTimeout(()=>{burst(cv.width*.1,140);burst(cv.width*.9,140);if(i%2)burst(cv.width/2,200)},t));
+ const end=Date.now()+7000;(function f(){cx.clearRect(0,0,cv.width,cv.height);ps.forEach(p=>{p.vy+=.45;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()});ps=ps.filter(p=>p.y<cv.height+20);if(Date.now()<end||ps.length)requestAnimationFrame(f);else cx.clearRect(0,0,cv.width,cv.height)})()}
+})();
+</script></body></html>
