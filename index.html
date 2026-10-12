@@ -21,9 +21,9 @@ section{margin:0;padding:34px 0;border-top:1px solid var(--line)}
 .hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--mp) 0%,var(--mpd) 45%,var(--mb) 100%);padding:22px 0 40px}
 .hero svg.mtn{position:absolute;left:0;right:0;bottom:0;width:100%;height:46%;pointer-events:none}
 .hero .wrap{position:relative}
-.wm{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.28em;font-size:.78rem;color:var(--w);margin-bottom:34px}
+.wm{display:flex;align-items:center;justify-content:center;text-align:center;gap:10px;font-weight:700;letter-spacing:.28em;font-size:.78rem;color:var(--w);margin-bottom:34px}
 .wm i{width:22px;height:1px;background:var(--sky)}.wm b{color:var(--sky);font-weight:700}
-.hero h1{margin:0;font-weight:800;font-size:clamp(2.6rem,11vw,5.6rem);line-height:.9;letter-spacing:.01em}.hero h1 span{color:var(--sky)}
+.hero h1{margin:0;text-align:center;font-weight:800;font-size:clamp(2.6rem,11vw,5.6rem);line-height:.9;letter-spacing:.01em}.hero h1 span{color:var(--sky)}
 .sub{color:#ffffffcc;margin:12px 0 28px;font-size:.92rem;letter-spacing:.02em}
 .board{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
 .cell{background:#0000008c;padding:16px 14px}
@@ -80,6 +80,8 @@ footer .wm{justify-content:center;margin:0 0 10px}
 .stand tr.zone td{padding:14px 6px 6px;border-bottom:1px solid;font:700 .7rem "Barlow Condensed",sans-serif;letter-spacing:.2em;text-transform:uppercase;text-align:left}
 .zone.po td{color:var(--sky);border-color:var(--sky)}.zone.pi td{color:#B48AE6;border-color:#B48AE6}.zone.lo td{color:var(--mute);border-color:#ffffff33}
 .snote{font-size:.8rem;color:var(--mute);margin:10px 0 0}
+.hero .sub{text-align:center}.wm{letter-spacing:.2em;font-size:.72rem}
+.mk span{transform:translateX(calc(-100% - 6px))}.mk.goal span{transform:translateX(6px)}
 </style></head><body>
 <div id="demo" class="demo" hidden>⚠ DEMO DATA: FAKE RESULTS FOR TESTING ONLY ⚠</div>
 <header class="hero"><svg class="mtn" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true"><path d="M0 300V190l140-90 90 55 160-125 120 95 80-50 170 130 110-70 150 85 90-45 90 50v165z" fill="#ffffff" opacity=".05"/><path d="M0 300V240l180-70 120 50 190-110 150 100 120-55 160 80 140-60 140 55v70z" fill="#000" opacity=".55"/></svg>
